@@ -5,6 +5,9 @@ import { InMemoryCatalogAdapter } from './adapters/in-memory-catalog.adapter';
 import { CATALOG_PRICING } from './ports/catalog-pricing.token';
 import { ORDER_REPOSITORY } from './ports/order-repository.token';
 import { InMemoryOrderRepository } from './adapters/in-memory-order.repository';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { OrderEntity } from './infrastructure/persistence/typeorm/order.entity';
+import { OrderItemEntity } from './infrastructure/persistence/typeorm/order-item.entity';
 
 @Module({
   controllers: [OrdersController],
@@ -19,5 +22,6 @@ import { InMemoryOrderRepository } from './adapters/in-memory-order.repository';
       useClass: InMemoryOrderRepository,
     },
   ],
+  imports:[TypeOrmModule.forFeature([OrderEntity, OrderItemEntity])]
 })
-export class OrdersModule {}
+export class OrdersModule { }
